@@ -1,69 +1,10 @@
-name: Build Windows ISO
-
-# Controls when the action will run. 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this worklow manually from the Actions tab
-
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+name: CI
+on: [push]
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: windows-2022
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Download Files
-        run: |
-          "ver" | cmd 
-          wmic diskdrive
-          df -h
-
-#           sudo -E apt-get update
-#           sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf swig libtinfo5
-#           sudo -E apt-get clean
-#           sudo apt-get install aria2 cabextract wimtools chntpw genisoimage tar
-#           df -h
-#           sudo bash uup_download_linux.sh
-            
-
-      # Runs a set of commands using the runners shell
-      - name: Generate Image
-        run: |
-          ls -h
-          mkdir latest
-          mv *.ISO latest/Windows-Dev-latest.ISO
-      
-      - name: Upload Image to artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: windows10-msater
-          path: latest/Windows-Dev-latest.ISO
-
-   #   - name: cd
-   #     run: |
-    #     cd /home/runner/work/win10imagelastest/win10imagelastest/latest
-    #     cp * /home/runner/work/win10imagelastest/win10imagelastest/
-          
-   #   - uses: majkrzak/create-release@master
-  #    with:
-  #        token: ${{secrets.RELEASES_TOKEN}}
-  #        name: windows10 msater
-  #        code: latest
-  #        prerelease: true
-  #        assets: >
-  #                 Windows10-Insider-latest-ISO.tar.gz:Windows10-Insider-latest-ISO.tar.gz:
-  #                Windows10-Dev-latest.ISO:Windows10-Dev-latest.ISO:
-                    
-      
+    - uses: actions/checkout@v3
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
 
