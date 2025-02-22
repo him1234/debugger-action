@@ -4,5 +4,5 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-     - name: Debugging with tmate
+     - name: Debugging with  tmate
        uses: mxschmitt/action-tmate@v3.19
